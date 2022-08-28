@@ -1,10 +1,14 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import server.MainController;
  
 public class App extends Application {
  
@@ -15,21 +19,18 @@ public class App extends Application {
      
     @Override
     public void start(Stage stage) throws Exception {
-        Button btn = new Button();
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e){
-                System.out.println("Hello World");
-            }
-        });
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
 
-        Scene scene = new Scene(root, 300, 250);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("server/main.fxml"));
+        Parent root = loader.load();
 
-        stage.setTitle("hello");
-        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(new Scene(root));
+
+        MainController mainController = loader.getController();
+        mainController.setPrimaryStage(stage);
         stage.show();
+       
     }
      
  
