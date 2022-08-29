@@ -55,9 +55,8 @@ public class MainController implements Initializable{
 
             @Override
             public void handle(ActionEvent arg0) {
-                Alert alert = new Alert(AlertType.ERROR) {
-                    
-                };
+                
+                
             }
         });
 
