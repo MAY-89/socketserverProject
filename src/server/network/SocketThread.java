@@ -1,4 +1,4 @@
-package network;
+package server.network;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -7,6 +7,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import constant.BizConstant;
+import database.UserDao;
+import server.vo.MessageVo;
+import server.vo.user.UserVo;
+
 public class SocketThread implements Runnable{
 
     private Socket socket;
@@ -14,6 +19,7 @@ public class SocketThread implements Runnable{
 	public ObjectOutputStream oos;
 	public BufferedOutputStream bos; 
 	public BufferedInputStream bis;
+    private UserDao userDao = null;
 
 
     public SocketThread(Socket socket) {
@@ -35,9 +41,17 @@ public class SocketThread implements Runnable{
        
 
              while(true){
-
+                userDao = new UserDao();
                  Object obj = ois.readObject();
                  if(obj != null){
+
+                    MessageVo msg = (MessageVo)obj;
+
+                    if(msg.getMessage() == BizConstant.JOIN){
+                        UserVo user = msg.getUserVo();
+                        userDao.joinMember(user);
+
+                    }
                     System.out.println("사용자가 보낸 메시지를 해독하질 못했습니다.");
                  }
              }
