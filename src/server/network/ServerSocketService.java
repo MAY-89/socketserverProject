@@ -14,14 +14,14 @@ public class ServerSocketService {
     public Socket client;
     private ExecutorService pool;
 
-    public ServerSocketService() {
+    public  ServerSocketService() {
 
         serverBind();
     }
 
     private void serverBind() {
         System.out.println("서버 오픈...............");
-
+        
         Thread thread = new Thread(()->{
             try {
                 pool = Executors.newFixedThreadPool(30);
