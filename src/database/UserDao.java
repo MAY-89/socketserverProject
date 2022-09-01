@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import server.vo.user.UserVo;
 
@@ -41,4 +43,27 @@ public class UserDao {
         return vo;
     }
 
+    public List<UserVo> selectUsers(){
+
+        conn = DatabaseConnector.getConnection();
+        String query = "SELECT * FROM TB_USER";
+        List<UserVo> userList = new ArrayList<>();
+        try {
+            pstmt = conn.prepareStatement(query);
+            rs = pstmt.executeQuery();
+            UserVo vo = new UserVo();
+           
+            while(rs.next()){
+                vo.setUserId(rs.getString(1));
+                vo.setUserPw(rs.getString(2));
+                vo.setRegDate(rs.getDate(3));
+                vo.setDelDate(rs.getDate(4));
+                userList.add(vo);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return userList;
+    }
 }

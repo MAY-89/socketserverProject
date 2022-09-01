@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class DatabaseConnector {
     
-    private final static String url = "jdbc:postgresql://127.0.0.1:5432/postgres";
-    private final static String user = "postgre";
+    private final static String url = "jdbc:postgresql://127.0.0.1:5432/socketserver";
+    private final static String user = "postgres";
     private final static String password = "root";
 
     private static Connection conn = null;
